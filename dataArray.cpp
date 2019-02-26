@@ -19,10 +19,10 @@ main()
     {
         cout << "Enter the number of students (max 20) : ";
         cin >> noOfStudents;
-    } while (noOfStudents < 2 || noOfStudents > 20);
+    } while (noOfStudents < 1 || noOfStudents > 20);
 
     // declaring arrays based on no of students
-    short birthDay[noOfStudents], birthMonth[noOfStudents], birthYear[noOfStudents], currentYear = 2019, ages[i];
+    short birthDay[noOfStudents], birthMonth[noOfStudents], birthYear[noOfStudents], currentYear = 2019, ages[noOfStudents];
     string studentName[noOfStudents], birthDate[noOfStudents];
     short findRoll, rollNo[noOfStudents];
     float average[noOfStudents];
@@ -55,7 +55,7 @@ main()
         {
             cout << "\t\tYear : ";
             cin >> birthYear[i];
-        } while (birthYear[i] < 1 || birthYear[i] > currentYear || to_string(birthYear[i]).length() != 4);
+        } while (birthYear[i] < 1111 || birthYear[i] > currentYear);
 
         // concatinaing the date of birth in single string
         birthDate[i] = to_string(birthDay[i]) + '/' + to_string(birthMonth[i]) + "/" + to_string(birthYear[i]);
@@ -77,86 +77,92 @@ main()
     // loop for printing the array in stuctured way
     for (i = 0; i < noOfStudents; i++)
     {
-        do
+        // finding the roll no in the array
+        if (findRoll == rollNo[i])
         {
-            // finding the roll no in the array
-            if (findRoll == rollNo[i])
+            findRoll = i;
+
+            cout << "Yes, this student exist in the class.\n";
+
+            cout << "\nThe Class : \n";
+            cout << "````````````\n";
+
+            cout << left << setw(8) << "Roll No.\t" << setw(15) << "Name\t" << setw(10) << "Birth Date\t" << setw(4) << "Age\t" << setw(8) << "Average\t" << endl;
+            cout << left << setw(8) << "````````\t" << setw(15) << "````\t" << setw(10) << "``````````\t" << setw(4) << "```\t" << setw(8) << "```````\t" << endl;
+
+            // highlighting the roll no which has to be found
+            for (i = 0; i < noOfStudents; i++)
             {
-                cout << "Yes, this student exist in the class.\n";
-                findRoll = i;
-
-                cout << "\nThe Class : \n";
-                cout << "````````````\n";
-
-                cout << left << setw(8) << "Roll No.\t" << setw(15) << "Name\t" << setw(10) << "Birth Date\t" << setw(4) << "Age\t" << setw(8) << "Average\t" << endl;
-                cout << left << setw(8) << "````````\t" << setw(15) << "````\t" << setw(10) << "``````````\t" << setw(4) << "```\t" << setw(8) << "```````\t" << endl;
-
-                // highlighting the roll no which has to be found
-                for (i = 0; i < noOfStudents; i++)
+                // if ((findRoll) == i - 1 || findRoll == i)
+                // {
+                //     cout << "---------------------------------------------------------------\n";
+                // }
+                // cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
+                if (findRoll == i)
                 {
-                    if (findRoll == i || (findRoll) == i - 1)
-                    {
-                        cout << "---------------------------------------------------------------\n";
-                    }
+                    cout << "---------------------------------------------------------------\n";
+                    cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
+                    cout << "---------------------------------------------------------------\n";
+                }
+                else
+                {
                     cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
                 }
+            }
 
-                // initial values for best and worst average
-                bestGrade = worstGrade = average[0];
+            // initial values for best and worst average
+            bestGrade = worstGrade = average[0];
 
-                // looping to find the best average, worst average and oldest student in the class
-                for (i = 0; i < noOfStudents; i++)
+            // looping to find the best average, worst average and oldest student in the class
+            for (i = 0; i < noOfStudents; i++)
+            {
+                worstGrade = (average[i] < worstGrade) ? average[i] : worstGrade;
+                bestGrade = (average[i] > bestGrade) ? average[i] : bestGrade;
+                oldest = (ages[i] > oldest) ? ages[i] : oldest;
+            }
+
+            // printing best average of the class in stuctured way
+            cout << "\nBest Grade in Class : \n";
+            cout << "``````````````````````\n";
+            cout << left << setw(8) << "Roll No.\t" << setw(15) << "Name\t" << setw(10) << "Birth Date\t" << setw(4) << "Age\t" << setw(8) << "Average\t" << endl;
+            cout << left << setw(8) << "````````\t" << setw(15) << "````\t" << setw(10) << "``````````\t" << setw(4) << "```\t" << setw(8) << "```````\t" << endl;
+
+            for (i = 0; i < noOfStudents; i++)
+            {
+                if (bestGrade == average[i])
                 {
-                    worstGrade = (average[i] < worstGrade) ? average[i] : worstGrade;
-                    bestGrade = (average[i] > bestGrade) ? average[i] : bestGrade;
-                    oldest = (ages[i] > oldest) ? ages[i] : oldest;
-                }
-
-                // printing best average of the class in stuctured way
-                cout << "\nBest Grade in Class : \n";
-                cout << "``````````````````````\n";
-                cout << left << setw(8) << "Roll No.\t" << setw(15) << "Name\t" << setw(10) << "Birth Date\t" << setw(4) << "Age\t" << setw(8) << "Average\t" << endl;
-                cout << left << setw(8) << "````````\t" << setw(15) << "````\t" << setw(10) << "``````````\t" << setw(4) << "```\t" << setw(8) << "```````\t" << endl;
-
-                for (i = 0; i < noOfStudents; i++)
-                {
-                    if (bestGrade == average[i])
-                    {
-                        cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
-                    }
-                }
-
-                // printing worst average of the class in stuctured way
-                cout << "\nWorst Grade in Class : \n";
-                cout << "```````````````````````\n";
-                cout << left << setw(8) << "Roll No.\t" << setw(15) << "Name\t" << setw(10) << "Birth Date\t" << setw(4) << "Age\t" << setw(8) << "Average\t" << endl;
-                cout << left << setw(8) << "````````\t" << setw(15) << "````\t" << setw(10) << "``````````\t" << setw(4) << "```\t" << setw(8) << "```````\t" << endl;
-
-                for (i = 0; i < noOfStudents; i++)
-                {
-                    if (worstGrade == average[i])
-                    {
-                        cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
-                    }
-                }
-
-                // printing age of oldest student of the class in stuctured way
-                cout << "\nOldest Student in Class : \n";
-                cout << "``````````````````````````\n";
-                cout << left << setw(8) << "Roll No.\t" << setw(15) << "Name\t" << setw(10) << "Birth Date\t" << setw(4) << "Age\t" << setw(8) << "Average\t" << endl;
-                cout << left << setw(8) << "````````\t" << setw(15) << "````\t" << setw(10) << "``````````\t" << setw(4) << "```\t" << setw(8) << "```````\t" << endl;
-
-                for (i = 0; i < noOfStudents; i++)
-                {
-                    if (oldest == ages[i])
-                    {
-                        cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
-                    }
+                    cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
                 }
             }
-            cout << "Not in class, Enter again : ";
-            cin >> findRoll;
-        } while (findRoll == rollNo[i]);
+
+            // printing worst average of the class in stuctured way
+            cout << "\nWorst Grade in Class : \n";
+            cout << "```````````````````````\n";
+            cout << left << setw(8) << "Roll No.\t" << setw(15) << "Name\t" << setw(10) << "Birth Date\t" << setw(4) << "Age\t" << setw(8) << "Average\t" << endl;
+            cout << left << setw(8) << "````````\t" << setw(15) << "````\t" << setw(10) << "``````````\t" << setw(4) << "```\t" << setw(8) << "```````\t" << endl;
+
+            for (i = 0; i < noOfStudents; i++)
+            {
+                if (worstGrade == average[i])
+                {
+                    cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
+                }
+            }
+
+            // printing age of oldest student of the class in stuctured way
+            cout << "\nOldest Student in Class : \n";
+            cout << "``````````````````````````\n";
+            cout << left << setw(8) << "Roll No.\t" << setw(15) << "Name\t" << setw(10) << "Birth Date\t" << setw(4) << "Age\t" << setw(8) << "Average\t" << endl;
+            cout << left << setw(8) << "````````\t" << setw(15) << "````\t" << setw(10) << "``````````\t" << setw(4) << "```\t" << setw(8) << "```````\t" << endl;
+
+            for (i = 0; i < noOfStudents; i++)
+            {
+                if (oldest == ages[i])
+                {
+                    cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
+                }
+            }
+        }
     }
     system("pause");
 }
