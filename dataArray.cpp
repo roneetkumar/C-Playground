@@ -164,5 +164,9 @@ main()
             }
         }
     }
+    if (findRoll != rollNo[i])
+    {
+        cout << "Didn't found\n";
+    }
     system("pause");
 }
