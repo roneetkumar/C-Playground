@@ -97,7 +97,7 @@ main()
                 // {
                 //     cout << "---------------------------------------------------------------\n";
                 // }
-                // cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
+                cout << left << setw(8) << rollNo[i] << "\t" << setw(15) << studentName[i] << "\t  " << setw(10) << birthDate[i] << "\t" << setw(4) << ages[i] << "\t" << setw(8) << average[i] << "\t" << endl;
                 if (findRoll == i)
                 {
                     cout << "---------------------------------------------------------------\n";
