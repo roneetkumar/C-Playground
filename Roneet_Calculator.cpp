@@ -1,14 +1,13 @@
 #include <iostream>
 using namespace std;
-
 main()
 {
-    float result = 0, value1, value2;
+    float result, value1, value2;
     short select, noOfValues, i;
     char restartOperation;
     do
     {
-        restartOperation = '\0';
+        restartOperation = 0;
         cout << "\t\t  Calculator\n";
         cout << "\t\t  ``````````\n";
         cout << "\t\t- By Roneet\n";
@@ -29,14 +28,12 @@ main()
             do
             {
                 system("cls");
+                result = 0;
                 cout << "\t\t  Calculator\n";
                 cout << "\t\t  ``````````\n";
                 cout << "\t\t   Addition\n";
-                do
-                {
-                    cout << "Enter the number of values to add (Max 20) : ";
-                    cin >> noOfValues;
-                } while (noOfValues < 0 || noOfValues > 20);
+                cout << "Enter the number of values to add : ";
+                cin >> noOfValues;
                 for (i = 0; i < noOfValues; i++)
                 {
                     cout << "Value " << i + 1 << " : ";
@@ -46,13 +43,13 @@ main()
                 cout << "The result is " << result << endl;
                 cout << "Would you like to do another addition ? (y - n) : ";
                 cin >> restartOperation;
-                result = 0;
             } while (restartOperation == 'y' || restartOperation == 'Y');
             break;
         case 2:
             do
             {
                 system("cls");
+                result = 0;
                 cout << "\t\t  Calculator\n";
                 cout << "\t\t  ``````````\n";
                 cout << "\t\t   Division\n";
@@ -64,13 +61,13 @@ main()
                 cout << "The result is " << result << endl;
                 cout << "Would you like to do another division ? (y - n) : ";
                 cin >> restartOperation;
-                result = 0;
             } while (restartOperation == 'y' || restartOperation == 'Y');
             break;
         case 3:
             do
             {
                 system("cls");
+                result = 0;
                 cout << "\t\t  Calculator\n";
                 cout << "\t\t  ``````````\n";
                 cout << "\t\t  Subtraction\n";
@@ -82,7 +79,6 @@ main()
                 cout << "The result is " << result << endl;
                 cout << "Would you like to do another subtraction ? (y - n) : ";
                 cin >> restartOperation;
-                result = 0;
             } while (restartOperation == 'y' || restartOperation == 'Y');
             break;
         case 4:
@@ -93,11 +89,8 @@ main()
                 cout << "\t\t  Calculator\n";
                 cout << "\t\t  ``````````\n";
                 cout << "\t\tMultiplication\n";
-                do
-                {
-                    cout << "Enter the number of values to Multiplication (Max 20) : ";
-                    cin >> noOfValues;
-                } while (noOfValues < 0 || noOfValues > 20);
+                cout << "Enter the number of values to Multiplication : ";
+                cin >> noOfValues;
                 for (i = 0; i < noOfValues; i++)
                 {
                     cout << "Value " << i + 1 << " : ";
@@ -107,7 +100,6 @@ main()
                 cout << "The result is " << result << endl;
                 cout << "Would you like to do another multiplication ? (y - n) : ";
                 cin >> restartOperation;
-                result = 1;
             } while (restartOperation == 'y' || restartOperation == 'Y');
             break;
         case 5:
