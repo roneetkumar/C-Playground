@@ -5,6 +5,7 @@ main()
     float result, value1, value2;
     short select, noOfValues, i;
     char restartOperation;
+
     do
     {
         restartOperation = 0;
@@ -106,5 +107,5 @@ main()
             break;
         }
         system("cls");
-    } while (restartOperation == 'n' || restartOperation == 'n');
+    } while (restartOperation == 'n' || restartOperation == 'N');
 }
