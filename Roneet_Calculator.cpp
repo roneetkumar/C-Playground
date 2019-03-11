@@ -5,7 +5,6 @@ main()
     float result, value1, value2;
     short select, noOfValues, i;
     char restartOperation;
-
     do
     {
         restartOperation = 0;
@@ -23,6 +22,8 @@ main()
             cout << "Enter your choice (1-5) : ";
             cin >> select;
         } while (select < 0 || select > 5);
+        cout << "\t\t  Calculator\n";
+        cout << "\t\t  ``````````\n";
         switch (select)
         {
         case 1:
@@ -30,8 +31,8 @@ main()
             {
                 system("cls");
                 result = 0;
-                cout << "\t\t  Calculator\n";
-                cout << "\t\t  ``````````\n";
+                // cout << "\t\t  Calculator\n";
+                // cout << "\t\t  ``````````\n";
                 cout << "\t\t   Addition\n";
                 cout << "Enter the number of values to add : ";
                 cin >> noOfValues;
@@ -42,15 +43,18 @@ main()
                     result += value1;
                 }
                 cout << "The result is " << result << endl;
-                cout << "Would you like to do another addition ? (y - n) : ";
-                cin >> restartOperation;
+                do
+                {
+                    cout << "Would you like to do another multiplication ? (y - n) : ";
+                    cin >> restartOperation;
+                } while (!(restartOperation == 'y' || restartOperation == 'Y' || restartOperation == 'n' || restartOperation == 'N'));
             } while (restartOperation == 'y' || restartOperation == 'Y');
             break;
         case 2:
             do
             {
                 system("cls");
-                result = 0;
+
                 cout << "\t\t  Calculator\n";
                 cout << "\t\t  ``````````\n";
                 cout << "\t\t   Division\n";
@@ -60,17 +64,19 @@ main()
                 cin >> value2;
                 result = value1 / value2;
                 cout << "The result is " << result << endl;
-                cout << "Would you like to do another division ? (y - n) : ";
-                cin >> restartOperation;
+                do
+                {
+                    cout << "Would you like to do another multiplication ? (y - n) : ";
+                    cin >> restartOperation;
+                } while (!(restartOperation == 'y' || restartOperation == 'Y' || restartOperation == 'n' || restartOperation == 'N'));
             } while (restartOperation == 'y' || restartOperation == 'Y');
             break;
         case 3:
             do
             {
                 system("cls");
-                result = 0;
-                cout << "\t\t  Calculator\n";
-                cout << "\t\t  ``````````\n";
+                // cout << "\t\t  Calculator\n";
+                // cout << "\t\t  ``````````\n";
                 cout << "\t\t  Subtraction\n";
                 cout << "Value 1 : ";
                 cin >> value1;
@@ -78,8 +84,11 @@ main()
                 cin >> value2;
                 result = value1 - value2;
                 cout << "The result is " << result << endl;
-                cout << "Would you like to do another subtraction ? (y - n) : ";
-                cin >> restartOperation;
+                do
+                {
+                    cout << "Would you like to do another multiplication ? (y - n) : ";
+                    cin >> restartOperation;
+                } while (!(restartOperation == 'y' || restartOperation == 'Y' || restartOperation == 'n' || restartOperation == 'N'));
             } while (restartOperation == 'y' || restartOperation == 'Y');
             break;
         case 4:
@@ -87,8 +96,8 @@ main()
             {
                 system("cls");
                 result = 1;
-                cout << "\t\t  Calculator\n";
-                cout << "\t\t  ``````````\n";
+                // cout << "\t\t  Calculator\n";
+                // cout << "\t\t  ``````````\n";
                 cout << "\t\tMultiplication\n";
                 cout << "Enter the number of values to Multiplication : ";
                 cin >> noOfValues;
@@ -99,8 +108,11 @@ main()
                     result *= value1;
                 }
                 cout << "The result is " << result << endl;
-                cout << "Would you like to do another multiplication ? (y - n) : ";
-                cin >> restartOperation;
+                do
+                {
+                    cout << "Would you like to do another multiplication ? (y - n) : ";
+                    cin >> restartOperation;
+                } while (!(restartOperation == 'y' || restartOperation == 'Y' || restartOperation == 'n' || restartOperation == 'N'));
             } while (restartOperation == 'y' || restartOperation == 'Y');
             break;
         case 5:
