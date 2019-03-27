@@ -34,7 +34,7 @@ main()
         // // cout << bestGrade[i];
 
         // // calculating the worst marks of the class
-        // worstGrade[i] = (grade[i] < worstGrade[i]) ? grade[i] : worstGrade[i];
+        worstGrade[i] = (grade[i] < worstGrade[i]) ? grade[i] : worstGrade[i];
     }
 
     cout << "\nThe students of the class\n";
