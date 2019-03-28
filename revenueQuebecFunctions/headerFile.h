@@ -5,6 +5,12 @@ using namespace std;
 
 #define currentYear 2019
 
+// to display name
+void displayString(string phrase)
+{
+    cout << phrase;
+}
+
 void displayLine(string title)
 {
     for (int i = 0; i < title.length(); i++)
@@ -63,19 +69,19 @@ int calcAge(int yearOfBirth)
 
 string checkAgeCat(int age)
 {
-    if (age > 1 && age < 14)
+    if (age >= 1 && age <= 14)
     {
         return "Child\n";
     }
-    else if (age > 15 && age < 20)
+    else if (age >= 15 && age <= 20)
     {
         return "Teenage\n";
     }
-    else if (age > 21 && age < 60)
+    else if (age >= 21 && age <= 60)
     {
         return "Adult\n";
     }
-    else if (age > 61 && age < 90)
+    else if (age >= 61 && age <= 90)
     {
         return "Senior\n";
     }
@@ -83,12 +89,6 @@ string checkAgeCat(int age)
     {
         return "Walking Dead\n";
     }
-}
-
-// to display name
-void displayString(string phrase)
-{
-    cout << phrase;
 }
 
 //to upper first

@@ -2,18 +2,31 @@
 
 main()
 {
+    string name;
+    char gender;
+    int yearOfBirth, age;
 
     displayString(toUpper("\t\tRevenue Quebec\n\t\t"));
-    // displayString(displayLine("Revenue Quebec"));
     displayLine("Revenue Quebec");
-    displayString("Enter your name : ");
-    string name = readString();
-    displayString("Select your gender (M/F) : ");
-    char gender = readChar();
-    displayString("Enter your year of birth : ");
-    int yearOfBirth = readNumber();
+    do
+    {
+        displayString("Enter your name : ");
+        name = readString();
+    } while (name.empty() || name == " ");
 
-    int age = calcAge(yearOfBirth);
+    do
+    {
+        displayString("Select your gender (M/F) : ");
+        gender = readChar();
+    } while (toupper(gender) != 'M' && toupper(gender) != 'F');
+
+    do
+    {
+        displayString("Enter your year of birth : ");
+        yearOfBirth = readNumber();
+    } while (yearOfBirth < 1900 || yearOfBirth > 2018);
+
+    age = calcAge(yearOfBirth);
 
     displayString("\n" + findGender(gender));
     displayString(upperFirst(name + ",\n"));
