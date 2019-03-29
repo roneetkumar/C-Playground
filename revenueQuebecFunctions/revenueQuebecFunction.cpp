@@ -8,11 +8,12 @@ main()
 
     displayString(toUpper("\t\tRevenue Quebec\n\t\t"));
     displayLine("Revenue Quebec");
+
     do
     {
         displayString("Enter your name : ");
         name = readString();
-    } while (name.empty() || name == " ");
+    } while (name[0] == 0 || name[0] == ' ');
 
     do
     {
