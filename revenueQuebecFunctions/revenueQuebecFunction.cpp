@@ -13,7 +13,7 @@ main()
     {
         displayString("Enter your name : ");
         name = readString();
-    } while (name[0] == 0 || name[0] == ' ');
+    } while (name[0] == 0 || name[0] == ' ' || isDigits(name));
 
     do
     {
@@ -26,7 +26,7 @@ main()
         displayString("Enter your year of birth : ");
         yearOfBirth = readNumber();
     } while (yearOfBirth < 1900 || yearOfBirth > 2018);
-
+    //yearOfBirth < 1900 || yearOfBirth > 2018
     age = calcAge(yearOfBirth);
 
     displayString("\n" + findGender(gender));

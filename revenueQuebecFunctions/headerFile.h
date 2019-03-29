@@ -72,7 +72,7 @@ string upperFirst(string word)
 // to find gender
 string findGender(char gender)
 {
-    return ((gender == 'M' || gender == 'm') ? "Sir " : "Mam ");
+    return (toupper(gender) == 'M' ? "Sir " : "Mam ");
 }
 
 // to calculat age and age category
@@ -106,12 +106,26 @@ string checkAgeCat(int age)
     }
 }
 
-// bool IsLetters(string input)
-// {
-//     for (int i = 0; i < input.size(); i++)
-//     {
-//         if (!isalpha(input[i]))
-//             return false; // character is not alphabetic
-//     }
-//     return true; // Every character is alphabetic
-// }
+bool isLetters(string input)
+{
+    for (int i = 0; i < input.length(); i++)
+    {
+        if (!isalpha(input[i]))
+            bool alpha = false; // character is not alphabetic
+    }
+    bool alpha = true; // Every character is alphabetic
+    return alpha;
+}
+
+bool isDigits(string input)
+{
+    for (int i = 0; i < input.length(); i++)
+    {
+        if (!isdigit(input[i]))
+        {
+            bool digit = false; // character is not numeric
+        }
+    }
+    bool digit = true; // Every character is numeric
+    return digit;
+}
