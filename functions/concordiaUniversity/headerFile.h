@@ -6,7 +6,6 @@ using namespace std;
 //to display title
 void displayTitle(string title)
 {
-
     for (int i = 0; i < title.length(); i++)
     {
         title[i] = toupper(title[i]);
@@ -35,10 +34,14 @@ short readNBStudents(short maxStu)
 }
 
 //to read grade of one student
-float readOneGrade()
+float readOneGrade(short max, short min, short number)
 {
     float grade;
-    cin >> grade;
+    do
+    {
+        cout << "Enter Grade " << number << " : ";
+        cin >> grade;
+    } while (grade > max || grade < min);
     return grade;
 }
 
@@ -47,21 +50,23 @@ void readAllGrades(float allGrades[], short allStudents)
 {
     for (short i = 0; i < allStudents; i++)
     {
-        do
-        {
-            cout << "Enter Grade " << i + 1 << " : ";
-            allGrades[i] = readOneGrade();
-        } while (allGrades[i] > 100 || allGrades[i] < 0);
+        allGrades[i] = readOneGrade(100, 0, i + 1);
     }
 }
 
+//to display grade of one student
+void displayOneGrade(float grade, short number)
+{
+    cout << "Grade " << number << " is " << grade << endl;
+}
+
 //to display all grades
-void displayGrades(float allGrades[], short allStudents)
+void displayAllGrades(float allGrades[], short allStudents)
 {
     cout << "\nGrades -\n\n";
     for (short i = 0; i < allStudents; i++)
     {
-        cout << "Grade " << i + 1 << " is " << allGrades[i] << endl;
+        displayOneGrade(allGrades[i], i + 1);
     }
 }
 
@@ -80,9 +85,8 @@ float calculateAverage(float allGrades[], short allStudents)
 float findBest(float allGrades[], short allStudents)
 {
     // initial values for best and worst average
-    float bestGrade, worstGrade;
-    bestGrade = 0;
-    worstGrade = 100;
+    float bestGrade = allGrades[0];
+
     // looping to find the best average, worst average and oldest student in the class
     for (short i = 0; i < allStudents; i++)
     {
@@ -95,9 +99,8 @@ float findBest(float allGrades[], short allStudents)
 float findWorst(float allGrades[], short allStudents)
 {
     // initial values for best and worst average
-    float bestGrade, worstGrade;
-    bestGrade = 0;
-    worstGrade = 100;
+    float worstGrade = allGrades[0];
+
     // looping to find the best average, worst average and oldest student in the class
     for (short i = 0; i < allStudents; i++)
     {
@@ -107,19 +110,7 @@ float findWorst(float allGrades[], short allStudents)
 }
 
 //to display info of students
-void displayInfo(string cal)
+void displayInfo(string text)
 {
-    cout << cal;
+    cout << text;
 }
-
-//-----------------Laboratory-------------------
-
-// //to display grade of one student
-// float displayOneGrade()
-// {
-//     float grade = readOneGrade();
-//     cout << grade;
-//     return grade;
-// }
-
-//-----------------Laboratory-------------------
