@@ -1,5 +1,4 @@
 #include "headerFile.h"
-#define NBofStudents 5
 
 main()
 {

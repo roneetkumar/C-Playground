@@ -3,19 +3,20 @@
 #include <string>
 #include <iomanip>
 using namespace std;
+#define NBofStudents 5
 
 //to upper first
-string upperFirst(string word)
+string upperFirst(string text)
 {
-    word[0] = toupper(word[0]);
-    for (int i = 1; i < word.length(); i++)
+    text[0] = toupper(text[0]);
+    for (int i = 1; i < text.length(); i++)
     {
-        if (word[i - 1] == ' ')
-            word[i] = toupper(word[i]);
+        if (text[i - 1] == ' ')
+            text[i] = toupper(text[i]);
         else
-            word[i] = tolower(word[i]);
+            text[i] = tolower(text[i]);
     }
-    return word;
+    return text;
 }
 
 //to display title
@@ -49,26 +50,40 @@ short readNBStudents(short maxStu)
 }
 
 //to read student name
-string readStuName(short number)
+string readStuName()
 {
     string name;
-    cout << "Student " << number << " - \n";
+    cin.ignore(1);
     do
     {
         cout << "\tName : ";
-        cin >> name;
+        getline(cin, name);
+
+        for (short i = 0; i < name.length(); i++)
+        {
+            if (isdigit(name[i]))
+            {
+                name[0] = ' ';
+            }
+        }
     } while ((name[0] == 0 || name[0] == ' '));
     return name;
 }
 
 // to read student grade
-float readStuGrade(short max, short min)
+float readStuGrade(short min, short max)
 {
     float grade;
     do
     {
         cout << "\tGrade : ";
         cin >> grade;
+        if (!cin)
+        {
+            cin.clear();
+            cin.ignore(1);
+            grade = -1;
+        }
     } while (grade > max || grade < min);
     return grade;
 }
@@ -78,8 +93,9 @@ void readAll(string allNames[], float allGrades[], short NBStu)
 {
     for (short i = 0; i < NBStu; i++)
     {
-        allNames[i] = readStuName(i + 1);
-        allGrades[i] = readStuGrade(100, 0);
+        cout << "Student " << i + 1 << " - \n";
+        allNames[i] = readStuName();
+        allGrades[i] = readStuGrade(0, 100);
     }
 }
 
@@ -102,13 +118,13 @@ void displayAll(string allNames[], float allGrades[], short NBStu)
     cout << "\nThe Class -\n";
     cout << "```````````\n";
 
-    cout << left << setw(8) << "Numbers\t\t" << setw(15) << "Names\t" << setw(5) << "Grades\t" << endl;
-    cout << left << setw(8) << "```````\t\t" << setw(15) << "`````\t" << setw(5) << "``````\t" << endl;
+    cout << left << setw(8) << "Numbers\t\t" << setw(25) << "Names" << setw(5) << "Grades\t" << endl;
+    cout << left << setw(8) << "```````\t\t" << setw(25) << "`````" << setw(5) << "``````\t" << endl;
     for (short i = 0; i < NBStu; i++)
     {
-        cout << left << setw(8) << i + 1 << "\t" << setw(15);
+        cout << left << setw(8) << i + 1 << "\t" << setw(25);
         displayStuName(allNames[i]);
-        cout << "\t  " << setw(5);
+        cout << setw(5);
         displayStuGrade(allGrades[i]);
         cout << endl;
     }
@@ -145,15 +161,15 @@ void displayBestStu(string allNames[], float allGrades[], short NBStu)
 {
     cout << "\n\tBest Grade in Class : \n";
     cout << "\t`````````````````````\n";
-    cout << left << setw(8) << "Numbers\t\t" << setw(15) << "Names\t" << setw(5) << "Grades\t" << endl;
-    cout << left << setw(8) << "```````\t\t" << setw(15) << "`````\t" << setw(5) << "``````\t" << endl;
+    cout << left << setw(8) << "Numbers\t\t" << setw(25) << "Names" << setw(5) << "Grades\t" << endl;
+    cout << left << setw(8) << "```````\t\t" << setw(25) << "`````" << setw(5) << "``````\t" << endl;
     for (short i = 0; i < NBStu; i++)
     {
         if (findBest(allGrades, NBStu) == allGrades[i])
         {
-            cout << left << setw(8) << i + 1 << "\t" << setw(15);
+            cout << left << setw(8) << i + 1 << "\t" << setw(25);
             displayStuName(allNames[i]);
-            cout << "\t  " << setw(5);
+            cout << setw(5);
             displayStuGrade(allGrades[i]);
             cout << endl;
         }
@@ -165,15 +181,15 @@ void displayWorstStu(string allNames[], float allGrades[], short NBStu)
 {
     cout << "\n\tWorst Grade in Class : \n";
     cout << "\t`````````````````````\n";
-    cout << left << setw(8) << "Numbers\t\t" << setw(15) << "Names\t" << setw(5) << "Grades\t" << endl;
-    cout << left << setw(8) << "```````\t\t" << setw(15) << "`````\t" << setw(5) << "``````\t" << endl;
+    cout << left << setw(8) << "Numbers\t\t" << setw(25) << "Names" << setw(5) << "Grades\t" << endl;
+    cout << left << setw(8) << "```````\t\t" << setw(25) << "`````" << setw(5) << "``````\t" << endl;
     for (short i = 0; i < NBStu; i++)
     {
         if (findWorst(allGrades, NBStu) == allGrades[i])
         {
-            cout << left << setw(8) << i + 1 << "\t" << setw(15);
+            cout << left << setw(8) << i + 1 << "\t" << setw(25);
             displayStuName(allNames[i]);
-            cout << "\t  " << setw(5);
+            cout << setw(5);
             displayStuGrade(allGrades[i]);
             cout << endl;
         }
