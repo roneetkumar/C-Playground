@@ -81,7 +81,7 @@ float readStuGrade(short min, short max)
         if (!cin)
         {
             cin.clear();
-            cin.ignore(1);
+            cin.ignore(256, '\n');
             grade = -1;
         }
     } while (grade > max || grade < min);

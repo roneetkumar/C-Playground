@@ -7,8 +7,8 @@ main()
 
     //variables
     short NBStu = readNBStudents(NBofStudents);
-    string allNames[NBStu];
-    float allGrades[NBStu];
+    string allNames[5];
+    float allGrades[5];
 
     readAll(allNames, allGrades, NBStu);
     displayAll(allNames, allGrades, NBStu);
