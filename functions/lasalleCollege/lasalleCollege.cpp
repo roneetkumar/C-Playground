@@ -10,11 +10,9 @@ main()
     string allNames[5];
     float allGrades[5];
 
-    readAll(allNames, allGrades, NBStu);
-    displayAll(allNames, allGrades, NBStu);
-    displayInfo("\nThe Class Average is " + to_string(calculateAverage(allGrades, NBStu)) + "\n");
-    displayBestStu(allNames, allGrades, NBStu);
-    displayWorstStu(allNames, allGrades, NBStu);
+    readAllInfo(allNames, allGrades, NBStu);
+    displayAverage("\nThe Class Average is " + to_string(calculateAverage(allGrades, NBStu)) + "\n");
+    displayAllInfo(allNames, allGrades, NBStu);
 
     system("pause");
 }

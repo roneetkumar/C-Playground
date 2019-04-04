@@ -89,7 +89,7 @@ float readStuGrade(short min, short max)
 }
 
 // to read student grades and names
-void readAll(string allNames[], float allGrades[], short NBStu)
+void readAllInfo(string allNames[], float allGrades[], short NBStu)
 {
     for (short i = 0; i < NBStu; i++)
     {
@@ -111,23 +111,26 @@ void displayStuGrade(float grade)
     cout << grade;
 }
 
-//to display all grades
-void displayAll(string allNames[], float allGrades[], short NBStu)
+void displayTableHeading(string title)
 {
-    cout << "\n_______________________________________\n\n";
-    cout << "\nThe Class -\n";
-    cout << "```````````\n";
+    cout << "\n\n\t\t" + title + "\n\t";
+    for (int i = 0; i < title.length(); i++)
+    {
+        cout << "```";
+    }
+    cout << "\n\n";
 
     cout << left << setw(8) << "Numbers\t\t" << setw(25) << "Names" << setw(5) << "Grades\t" << endl;
     cout << left << setw(8) << "```````\t\t" << setw(25) << "`````" << setw(5) << "``````\t" << endl;
-    for (short i = 0; i < NBStu; i++)
-    {
-        cout << left << setw(8) << i + 1 << "\t" << setw(25);
-        displayStuName(allNames[i]);
-        cout << setw(5);
-        displayStuGrade(allGrades[i]);
-        cout << endl;
-    }
+}
+
+void displayStuTable(string allNames[], float allGrades[], short i)
+{
+    cout << left << setw(8) << i + 1 << "\t" << setw(25);
+    displayStuName(allNames[i]);
+    cout << setw(5);
+    displayStuGrade(allGrades[i]);
+    cout << endl;
 }
 
 // find best student
@@ -156,46 +159,6 @@ float findWorst(float allGrades[], short NBStu)
     return worstGrade;
 }
 
-// display best student
-void displayBestStu(string allNames[], float allGrades[], short NBStu)
-{
-    cout << "\n\tBest Grade in Class : \n";
-    cout << "\t`````````````````````\n";
-    cout << left << setw(8) << "Numbers\t\t" << setw(25) << "Names" << setw(5) << "Grades\t" << endl;
-    cout << left << setw(8) << "```````\t\t" << setw(25) << "`````" << setw(5) << "``````\t" << endl;
-    for (short i = 0; i < NBStu; i++)
-    {
-        if (findBest(allGrades, NBStu) == allGrades[i])
-        {
-            cout << left << setw(8) << i + 1 << "\t" << setw(25);
-            displayStuName(allNames[i]);
-            cout << setw(5);
-            displayStuGrade(allGrades[i]);
-            cout << endl;
-        }
-    }
-}
-
-//display worst student
-void displayWorstStu(string allNames[], float allGrades[], short NBStu)
-{
-    cout << "\n\tWorst Grade in Class : \n";
-    cout << "\t`````````````````````\n";
-    cout << left << setw(8) << "Numbers\t\t" << setw(25) << "Names" << setw(5) << "Grades\t" << endl;
-    cout << left << setw(8) << "```````\t\t" << setw(25) << "`````" << setw(5) << "``````\t" << endl;
-    for (short i = 0; i < NBStu; i++)
-    {
-        if (findWorst(allGrades, NBStu) == allGrades[i])
-        {
-            cout << left << setw(8) << i + 1 << "\t" << setw(25);
-            displayStuName(allNames[i]);
-            cout << setw(5);
-            displayStuGrade(allGrades[i]);
-            cout << endl;
-        }
-    }
-}
-
 //to find average
 float calculateAverage(float allGrades[], short NBStu)
 {
@@ -208,7 +171,35 @@ float calculateAverage(float allGrades[], short NBStu)
 }
 
 //to display info of students
-void displayInfo(string text)
+void displayAverage(string text)
 {
     cout << text;
+}
+
+//to display all grades
+void displayAllInfo(string allNames[], float allGrades[], short NBStu)
+{
+    displayTableHeading("The Class");
+    for (short i = 0; i < NBStu; i++)
+    {
+        displayStuTable(allNames, allGrades, i);
+    }
+
+    displayTableHeading("The Best");
+    for (short i = 0; i < NBStu; i++)
+    {
+        if (findBest(allGrades, NBStu) == allGrades[i])
+        {
+            displayStuTable(allNames, allGrades, i);
+        }
+    }
+
+    displayTableHeading("The Worst");
+    for (short i = 0; i < NBStu; i++)
+    {
+        if (findWorst(allGrades, NBStu) == allGrades[i])
+        {
+            displayStuTable(allNames, allGrades, i);
+        }
+    }
 }
