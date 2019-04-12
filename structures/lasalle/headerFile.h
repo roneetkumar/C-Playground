@@ -166,9 +166,9 @@ bool dateValidation(short date, short month, short year)
         return false;
 }
 
-short calcAge(short EMPyob)
+short calcAge(short StuYob)
 {
-    return currentYear - EMPyob;
+    return currentYear - StuYob;
 }
 
 struct student readOneStu()
@@ -192,7 +192,7 @@ struct student readOneStu()
 
 void displayOneStu(student stu)
 {
-    cout << left << setw(10) << toUpper(stu.no) << setw(20) << stu.name << stu.birthdate.date << "/" << stu.birthdate.month << "/" << stu.birthdate.year << "\t\t" << setw(2) << calcAge(stu.birthdate.year) << endl;
+    cout << left << setw(10) << "ST" + toUpper(stu.no) << setw(20) << stu.name << stu.birthdate.date << "/" << stu.birthdate.month << "/" << stu.birthdate.year << "\t\t" << setw(2) << calcAge(stu.birthdate.year) << endl;
 }
 
 void readAllStudent(short NBEmp, student stu[])
@@ -204,33 +204,20 @@ void readAllStudent(short NBEmp, student stu[])
     }
 }
 
-void displayFoundStu(short NBStu, student stu[], short minYear, short maxYear)
+short readYear(string temp, short yearS, short yearE)
 {
-    short firstYear, secondYear;
-    cout << "\nDisplay of student born between two year.\n";
-    cout << "Enter first year (" << minYear << ") : ";
-    cin >> firstYear;
-    cout << "Enter Second year (" << maxYear << ") : ";
-    cin >> secondYear;
+    short year;
+    cout << "\nEnter " << temp << " year (" << yearS << " - " << yearE << ") : ";
+    cin >> year;
+    return year;
+}
+
+void displayFoundStu(short NBStu, student stu[], short startY, short lastY)
+{
     cout << "\n";
-
     for (short i = 0; i < NBStu; i++)
     {
-        if ((firstYear < stu[i].birthdate.year) && (secondYear > stu[i].birthdate.year))
-        {
-            cout << "Student Found\n";
-            break;
-        }
-        else
-        {
-            cout << "Student Not Found\n";
-            break;
-        }
-    }
-
-    for (short i = 0; i < NBStu; i++)
-    {
-        if ((firstYear < stu[i].birthdate.year) && (secondYear > stu[i].birthdate.year))
+        if ((startY < stu[i].birthdate.year) && (lastY > stu[i].birthdate.year))
             displayOneStu(stu[i]);
     }
 }

@@ -9,7 +9,10 @@ main()
     NBStu = readNBStu(20);
     readAllStudent(NBStu, stu);
     displayAllStudent(NBStu, stu);
-    displayFoundStu(NBStu, stu, 1995, 2004);
+
+    short startYear = readYear("first", 1995, 2004);
+    short lastYear = readYear("second", 1995, 2004);
+    displayFoundStu(NBStu, stu, startYear, lastYear);
 
     system("pause");
 }
