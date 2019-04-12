@@ -66,7 +66,7 @@ string readStuName()
                 name[0] = ' ';
             }
         }
-    } while ((name[0] == 0 || name[0] == ' '));
+    } while (name[0] == 0 || name[0] == ' ');
     return name;
 }
 
@@ -124,9 +124,9 @@ void displayTableHeading(string title)
     cout << left << setw(8) << "```````\t\t" << setw(25) << "`````" << setw(5) << "``````\t" << endl;
 }
 
-void displayStuTable(string allNames[], float allGrades[], short i)
+void displayStuTable(string allNames[], float allGrades[], short i, short j)
 {
-    cout << left << setw(8) << i + 1 << "\t" << setw(25);
+    cout << left << setw(8) << j << "\t" << setw(25);
     displayStuName(allNames[i]);
     cout << setw(5);
     displayStuGrade(allGrades[i]);
@@ -136,8 +136,7 @@ void displayStuTable(string allNames[], float allGrades[], short i)
 // find best student
 float findBest(float allGrades[], short NBStu)
 {
-    float bestGrade;
-    bestGrade = allGrades[0];
+    float bestGrade = allGrades[0];
 
     for (short i = 0; i < NBStu; i++)
     {
@@ -149,8 +148,7 @@ float findBest(float allGrades[], short NBStu)
 // find worst student
 float findWorst(float allGrades[], short NBStu)
 {
-    float worstGrade;
-    worstGrade = allGrades[0];
+    float worstGrade = allGrades[0];
 
     for (short i = 0; i < NBStu; i++)
     {
@@ -180,26 +178,29 @@ void displayAverage(string text)
 void displayAllInfo(string allNames[], float allGrades[], short NBStu)
 {
     displayTableHeading("The Class");
-    for (short i = 0; i < NBStu; i++)
+    for (short i = 0, j = 1; i < NBStu; i++)
     {
-        displayStuTable(allNames, allGrades, i);
+        displayStuTable(allNames, allGrades, i, j);
+        j++;
     }
 
     displayTableHeading("The Best");
-    for (short i = 0; i < NBStu; i++)
+    for (short i = 0, j = 1; i < NBStu; i++)
     {
         if (findBest(allGrades, NBStu) == allGrades[i])
         {
-            displayStuTable(allNames, allGrades, i);
+            displayStuTable(allNames, allGrades, i, j);
+            j++;
         }
     }
 
     displayTableHeading("The Worst");
-    for (short i = 0; i < NBStu; i++)
+    for (short i = 0, j = 1; i < NBStu; i++)
     {
         if (findWorst(allGrades, NBStu) == allGrades[i])
         {
-            displayStuTable(allNames, allGrades, i);
+            displayStuTable(allNames, allGrades, i, j);
+            j++;
         }
     }
 }
