@@ -1,0 +1,12 @@
+cl001
+Bill Gates
+Microsoft
+275000
+cl002
+Steve Jobs
+Apple
+254030
+cl003
+Elon Musk
+Tesla
+240393
