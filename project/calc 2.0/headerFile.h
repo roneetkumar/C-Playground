@@ -47,134 +47,18 @@ short readOption(short min, short max)
     return option;
 }
 
-short NBofValues(string operation)
-{
-    short NB;
-    do
-    {
-        cout << "Enter the no. of values for " << operation << " : ";
-        cin >> NB;
-        if (!cin)
-        {
-            cin.clear();
-            cin.ignore(256, '\n');
-            NB = -1;
-        }
-    } while (NB < 0);
-    return NB;
-}
+/* this function reads a value and validates it for numeric.
+ this is a general purpose function which can used at multiple sections of the
+ program. its only job is to read a value from user and validate it for 
+ numeric value. Moreover, it also ask's the user to input the value depending upon 
+ users need.*/
 
-float calcAdd(string operation)
+double readValue(string temp)
 {
-    float value, result = 0;
-    displayTitle("calculator 2.0", " - " + operation + " -");
-    short NBValues = NBofValues(operation);
-    for (short i = 0; i < NBValues; i++)
-    {
-        do
-        {
-            cout << "Value " << i + 1 << " : ";
-            cin >> value;
-            if (!cin)
-            {
-                cin.clear();
-                cin.ignore(256, '\n');
-                value = -1;
-            }
-        } while (value < 0);
-        result += value;
-    }
-    return result;
-}
-
-float calcSub(string operation)
-{
-    float value1, value2, result = 0;
-    displayTitle("calculator 2.0", " - " + operation + " -");
+    double value;
     do
     {
-        cout << "Enter value 1  : ";
-        cin >> value1;
-        if (!cin)
-        {
-            cin.clear();
-            cin.ignore(256, '\n');
-            value1 = -1;
-        }
-    } while (value1 < 0);
-    do
-    {
-        cout << "Enter value 2 : ";
-        cin >> value2;
-        if (!cin)
-        {
-            cin.clear();
-            cin.ignore(256, '\n');
-            value2 = -1;
-        }
-    } while (value2 < 0);
-    return value1 - value2;
-}
-
-float calcMul(string operation)
-{
-    float value, result = 1;
-    displayTitle("calculator 2.0", " - " + operation + " -");
-    short NBValues = NBofValues(operation);
-    for (short i = 0; i < NBValues; i++)
-    {
-        do
-        {
-            cout << "Value " << i + 1 << " : ";
-            cin >> value;
-            if (!cin)
-            {
-                cin.clear();
-                cin.ignore(256, '\n');
-                value = -1;
-            }
-        } while (value < 0);
-        result *= value;
-    }
-    return result;
-}
-
-float calcDiv(string operation)
-{
-    float value1, value2, result = 0;
-    displayTitle("calculator 2.0", " - " + operation + " -");
-    do
-    {
-        cout << "Enter the value to divide  : ";
-        cin >> value1;
-        if (!cin)
-        {
-            cin.clear();
-            cin.ignore(256, '\n');
-            value1 = -1;
-        }
-    } while (value1 < 0);
-    cout << "Enter the divider : ";
-    do
-    {
-        cin >> value2;
-        if (!cin)
-        {
-            cin.clear();
-            cin.ignore(256, '\n');
-            value2 = -1;
-        }
-    } while (value2 < 0);
-    return value1 / value2;
-}
-
-float calcSquare(string operation)
-{
-    float value;
-    displayTitle("calculator 2.0", " - " + operation + " -");
-    do
-    {
-        cout << "Enter the value to square  : ";
+        cout << temp;
         cin >> value;
         if (!cin)
         {
@@ -183,13 +67,58 @@ float calcSquare(string operation)
             value = -1;
         }
     } while (value < 0);
+    return value;
+}
+
+double calcAdd(string operation)
+{
+    double result = 0;
+    displayTitle("calculator 2.0", " - " + operation + " -");
+    short NBValues = readValue("Enter the no. of values for " + operation + " : ");
+    for (short i = 0; i < NBValues; i++)
+    {
+        result += readValue("Enter value " + to_string(i + 1) + " : ");
+    }
+    return result;
+}
+
+double calcSub(string operation)
+{
+    displayTitle("calculator 2.0", " - " + operation + " -");
+    return readValue("Enter value 1 :") - readValue("Enter value 2 : ");
+}
+
+double calcMul(string operation)
+{
+    double result = 1;
+    displayTitle("calculator 2.0", " - " + operation + " -");
+    short NBValues = readValue("Enter the no. of values for " + operation + " : ");
+    for (short i = 0; i < NBValues; i++)
+    {
+        result *= readValue("Enter value " + to_string(i + 1) + " : ");
+    }
+    return result;
+}
+
+double calcDiv(string operation)
+{
+    displayTitle("calculator 2.0", " - " + operation + " -");
+    return readValue("Enter the value to divide  : ") / readValue("Enter the divider : ");
+}
+
+double calcSquare(string operation)
+{
+    double value;
+    displayTitle("calculator 2.0", " - " + operation + " -");
+    value = readValue("Enter a value : ");
     return value * value;
 }
 
-void displayResult(float result)
+void displayResult(double result)
 {
     cout << "The result is " << result << endl;
 }
+
 char restartCalc(char restart)
 {
     do
@@ -197,5 +126,6 @@ char restartCalc(char restart)
         cout << "Would you like to do another  ? (y - n) : ";
         cin >> restart;
     } while (!(toupper(restart) == 'Y' || toupper(restart) == 'N'));
+    system("cls");
     return (toupper(restart));
 }
