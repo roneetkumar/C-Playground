@@ -70,6 +70,8 @@ double readValue(string temp)
     return value;
 }
 
+// operations----------------------------------
+
 double calcAdd(string operation)
 {
     double result = 0;
@@ -113,6 +115,8 @@ double calcSquare(string operation)
     value = readValue("Enter a value : ");
     return value * value;
 }
+
+// operations----------------------------------
 
 void displayResult(double result)
 {
