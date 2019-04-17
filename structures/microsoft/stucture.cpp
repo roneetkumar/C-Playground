@@ -9,6 +9,5 @@ main()
 
     getAllInfo(NBEmp, EmpInfo);
     displayAllInfo(NBEmp, EmpInfo);
-
     system("pause");
 }

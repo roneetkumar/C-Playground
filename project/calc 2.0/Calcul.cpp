@@ -1,4 +1,4 @@
-#include "headerFile.h"
+#include "myFunctions.h"
 int main()
 {
     char restart;
