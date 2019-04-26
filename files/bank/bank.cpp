@@ -5,10 +5,10 @@ main()
     ifstream myFile;
 
     client arrClient[20];
-    client currentClient;
+    // client currentClient;
     short NBofClient;
     string temptext;
-    // long tempbal;
+    long tempbal;
 
     displayHeading("Royal Bank");
 

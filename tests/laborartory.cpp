@@ -1,18 +1,20 @@
-#include <iostream>
-#include <string>
+#include "myFunctions.h"
 
 using namespace std;
 
 main()
 {
-    int arr[10];
-    for (auto i : arr)
+    //variables
+    int no;
+
+    displayText("Enter Value For Prime No's  : ");
+    int NB = readNo();
+
+    int num1 = readNo();
+    int num2 = readNo();
+
+    for (short i = 1; i < NB; i++)
     {
-        cin >> i;
-        if ((i % 2 == 0))
-            cout << "this is even\n";
-        else
-            cout << "this is odd\n";
+        if()
     }
-    system("pause");
 }

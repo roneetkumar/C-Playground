@@ -5,14 +5,13 @@ using namespace std;
 
 main()
 {
-    ifstream myFile;
-    string name;
+    fstream myFile;
+    string name = "pink";
     myFile.open("students.txt");
 
-    while (!myFile.eof())
+    for (short i = 0; i < 5; i++)
     {
-        getline(myFile, name);
-        cout << name << endl;
+        myFile << name;
     }
     myFile.close();
     system("pause");
