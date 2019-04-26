@@ -26,7 +26,7 @@ string toUpper(string text)
 
 short readFiles(clients arrClients[])
 {
-    fstream myFile;
+    ifstream myFile;
     string tempText;
     short NBofClients, i;
     myFile.open("client.txt");

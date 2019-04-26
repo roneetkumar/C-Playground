@@ -33,7 +33,7 @@ main()
                     displayHeading("Royal Bank");
                     displayHeading("|Deposit|");
                     displayAccInfo(selectedClient, NBofClients, arrClients);
-                    // finalBalance = arrClients[selectedClient].balance = deposit(selectedClient, arrClients);
+                    finalBalance = arrClients[selectedClient].balance = deposit(selectedClient, arrClients);
                     restart = restartCalc(restart);
                     break;
                 case 2:

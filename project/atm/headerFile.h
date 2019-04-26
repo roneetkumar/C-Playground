@@ -153,7 +153,7 @@ void displaytTransactionMenu()
     cout << "\n1. Deposit\n";
     cout << "2. Withdrawn\n";
     cout << "3. Consult\n";
-    cout << "4. Log Out\n";
+    // cout << "4. Log Out\n";
 }
 
 short readAccType()
@@ -189,8 +189,8 @@ void deposit(short selectedClient, clients arrClients[])
         cout << "Enter the amount you want to deposit in this transaction (Max $1000) : ";
         cin >> deposit;
     } while (deposit < 10 || deposit > 1000);
-    // cout << "\nTotal balance after transaction : $" << arrClients[selectedClient].balance + deposit << "CAD" << endl;
-    // return arrClients[selectedClient].balance + deposit;
+    cout << "\nTotal balance after transaction : $" << arrClients[selectedClient].balance + deposit << "CAD" << endl;
+    return arrClients[selectedClient].balance + deposit;
 }
 
 void withdrawl(short selectedClient, clients arrClients[])
