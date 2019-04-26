@@ -2,7 +2,7 @@
 
 main()
 {
-    short NBofClients, selectedClient, accountType;
+    short NBofClients, selectedClient, accountType, transactionType;
     clients arrClients[20];
     clients arrAccounts[20];
     string clientNo, pin;
@@ -16,6 +16,7 @@ main()
 
     displaytAccountMenu();
     accountType = readOptions(1, 4);
-
+    displaytTransactionMenu();
+    transactionType = readOptions(1, 4);
     system("pause");
 }

@@ -129,6 +129,17 @@ void displaytAccountMenu()
     cout << "4. Log Out\n";
 }
 
+void displaytTransactionMenu()
+{
+    system("cls");
+    displayHeading("Royal Bank");
+    cout << "\nSelect Transcation Type : \n";
+    cout << "\n1. Deposit\n";
+    cout << "2. Withdrawn\n";
+    cout << "3. Consult\n";
+    cout << "4. Log Out\n";
+}
+
 short readOptions(short start, short end)
 {
     short select;
@@ -139,4 +150,15 @@ short readOptions(short start, short end)
     } while (select < start || select > end);
     system("cls");
     return select;
+}
+
+char restartCalc(char restart)
+{
+    do
+    {
+        cout << "Would you like to do another  ? (y - n) : ";
+        cin >> restart;
+    } while (!(toupper(restart) == 'Y' || toupper(restart) == 'N'));
+    system("cls");
+    return (toupper(restart));
 }
