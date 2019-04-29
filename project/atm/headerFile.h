@@ -61,14 +61,6 @@ short readFiles(clients arrClients[])
 void updateFile(clients arrClients[], short NBofClients)
 {
     ofstream myFile;
-    myFile.open("clients.txt");
-    for (short i = 0; i < NBofClients; i++)
-    {
-        myFile << arrClients[i].number << endl;
-        myFile << arrClients[i].name << endl;
-        myFile << arrClients[i].pin << endl;
-    }
-    myFile.close();
     myFile.open("account.txt");
     for (short i = 0; i < NBofClients; i++)
     {
