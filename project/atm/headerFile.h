@@ -34,7 +34,7 @@ short readFile(clients arrClients[], accounts arrAccounts[])
         i++;
     }
     clients.close();
-    accounts.open("account.txt");
+    clients.open("account.txt");
     i = 0;
     while (!accounts.eof())
     {
@@ -61,7 +61,7 @@ void updateFile(clients arrClients[], short NBofClients)
         myFile << arrClients[i].number << endl;
         myFile << arrClients[i].name << endl;
         myFile << arrClients[i].pin << endl;
-        myFile << to_string(arrClients[i].balance) << endl;
+        // myFile << to_string(arrClients[i].balance) << endl;
     }
     myFile.close();
 }
@@ -189,8 +189,8 @@ void deposit(short selectedClient, clients arrClients[])
         cout << "Enter the amount you want to deposit in this transaction (Max $1000) : ";
         cin >> deposit;
     } while (deposit < 10 || deposit > 1000);
-    cout << "\nTotal balance after transaction : $" << arrClients[selectedClient].balance + deposit << "CAD" << endl;
-    return arrClients[selectedClient].balance + deposit;
+    // cout << "\nTotal balance after transaction : $" << arrClients[selectedClient].balance + deposit << "CAD" << endl;
+    // return arrClients[selectedClient].balance + deposit;
 }
 
 void withdrawl(short selectedClient, clients arrClients[])
