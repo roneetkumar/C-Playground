@@ -2,122 +2,38 @@
 
 main()
 {
-    char restart;
+    short NBofClients, selectedClient, accountType, transactionType;
     clients arrClients[20];
-    accounts arrAccounts[20];
     long finalBalance;
-    short trasactionType, accountType, selectedClient, NBofClients;
     string clientNo, pin;
 
-    NBofClients = readFile(arrClients, arrAccounts);
+    NBofClients = readFiles(arrClients);
+
     displayHeading("Royal Bank");
     clientNo = readClientNo(NBofClients, arrClients);
-    selectedClient = checkClient(clientNo, NBofClients, arrClients);
+    selectedClient = checkClient(NBofClients, clientNo, arrClients);
     pin = readPIN(selectedClient, arrClients);
 
-    do
+    displaytAccountMenu();
+    accountType = readOptions(1, 3);
+
+    switch (accountType)
     {
-        restart = 0;
-        displaytAccountMenu();
-        accountType = readAccType();
-        switch (accountType)
-        {
-        case 1:
-            displaytTransactionMenu();
-            trasactionType = readAccType();
-            do
-            {
-                switch (trasactionType)
-                {
-                case 1:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Deposit|");
-                    displayAccInfo(selectedClient, NBofClients, arrClients);
-                    // finalBalance = arrClients[selectedClient].balance = deposit(selectedClient, arrClients);
-                    restart = restartCalc(restart);
-                    break;
-                case 2:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Withdrawn|");
-                    displayAccInfo(selectedClient, NBofClients, arrClients);
-                    // finalBalance = arrClients[selectedClient].balance = withdrawl(selectedClient, arrClients);
-                    restart = restartCalc(restart);
-                    break;
-                case 3:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Consult|");
-                    break;
-
-                default:
-                    updateFile(arrClients, NBofClients);
-                    break;
-                }
-            } while (restart == 'Y');
-            break;
-        case 2:
-            displaytTransactionMenu();
-            trasactionType = readAccType();
-            do
-            {
-                switch (trasactionType)
-                {
-                case 1:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Deposit|");
-                    displayAccInfo(selectedClient, NBofClients, arrClients);
-                    // finalBalance = arrClients[selectedClient].balance = deposit(selectedClient, arrClients);
-                    restart = restartCalc(restart);
-                    break;
-                case 2:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Withdrawn|");
-                    displayAccInfo(selectedClient, NBofClients, arrClients);
-                    // finalBalance = arrClients[selectedClient].balance = withdrawl(selectedClient, arrClients);
-                    restart = restartCalc(restart);
-                    break;
-                case 3:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Consult|");
-                    break;
-
-                default:
-                    updateFile(arrClients, NBofClients);
-                    break;
-                }
-            } while (restart == 'Y');
-            break;
-        case 3:
-            displaytTransactionMenu();
-            trasactionType = readAccType();
-            do
-            {
-                switch (trasactionType)
-                {
-                case 1:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Deposit|");
-                    displayAccInfo(selectedClient, NBofClients, arrClients);
-                    // finalBalance = arrClients[selectedClient].balance = deposit(selectedClient, arrClients);
-                    restart = restartCalc(restart);
-                    break;
-                case 2:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Withdrawn|");
-                    displayAccInfo(selectedClient, NBofClients, arrClients);
-                    // finalBalance = arrClients[selectedClient].balance = withdrawl(selectedClient, arrClients);
-                    restart = restartCalc(restart);
-                    break;
-                case 3:
-                    displayHeading("Royal Bank");
-                    displayHeading("|Consult|");
-                    break;
-
-                default:
-                    updateFile(arrClients, NBofClients);
-                    break;
-                }
-            } while (restart == 'Y');
-            break;
-        }
-    } while (restart == 'N');
+    case 1:
+        displayHeading("CheckIn");
+        openAccount("CheckIn", selectedClient, NBofClients, arrClients);
+        break;
+    case 2:
+        displayHeading("Savings");
+        openAccount("Savings", selectedClient, NBofClients, arrClients);
+        break;
+    case 3:
+        displayHeading("Credit");
+        openAccount("Credit", selectedClient, NBofClients, arrClients);
+        break;
+    default:
+        break;
+    }
+    updateFile(arrClients, NBofClients);
+    system("pause");
 }

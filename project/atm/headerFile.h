@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -7,64 +6,14 @@ using namespace std;
 
 struct accounts
 {
-    long checkin, saving, credit;
+    long checkin, savings, credit;
 };
 
 struct clients
 {
     string number, name, pin;
-    accounts accType;
+    accounts type;
 };
-
-short readFile(clients arrClients[], accounts arrAccounts[])
-{
-    fstream clients, accounts;
-    string temptext;
-    short NBofClients;
-    clients.open("clients.txt");
-    short i = 0;
-    while (!clients.eof())
-    {
-        getline(clients, temptext);
-        arrClients[i].number = temptext;
-        getline(clients, temptext);
-        arrClients[i].name = temptext;
-        getline(clients, temptext);
-        arrClients[i].pin = temptext;
-        i++;
-    }
-    clients.close();
-    clients.open("account.txt");
-    i = 0;
-    while (!accounts.eof())
-    {
-        getline(accounts, temptext);
-        arrClients[i].number = temptext;
-        getline(accounts, temptext);
-        arrClients[i].accType.checkin = stol(temptext);
-        getline(accounts, temptext);
-        arrClients[i].accType.saving = stol(temptext);
-        getline(accounts, temptext);
-        arrClients[i].accType.credit = stol(temptext);
-        i++;
-    }
-    accounts.close();
-    return NBofClients = i;
-}
-
-void updateFile(clients arrClients[], short NBofClients)
-{
-    fstream myFile;
-    myFile.open("clients.txt");
-    for (short i = 0; i < NBofClients; i++)
-    {
-        myFile << arrClients[i].number << endl;
-        myFile << arrClients[i].name << endl;
-        myFile << arrClients[i].pin << endl;
-        // myFile << to_string(arrClients[i].balance) << endl;
-    }
-    myFile.close();
-}
 
 string toUpper(string text)
 {
@@ -73,6 +22,61 @@ string toUpper(string text)
         text[i] = toupper(text[i]);
     }
     return text;
+}
+
+short readFiles(clients arrClients[])
+{
+    ifstream myFile;
+    string tempText;
+    short NBofClients, i;
+    myFile.open("client.txt");
+    i = 0;
+    while (!myFile.eof())
+    {
+        getline(myFile, tempText);
+        arrClients[i].number = toUpper(tempText);
+        getline(myFile, tempText);
+        arrClients[i].name = toUpper(tempText);
+        getline(myFile, tempText);
+        arrClients[i].pin = tempText;
+        i++;
+    }
+    myFile.close();
+    i = 0;
+    myFile.open("account.txt");
+    while (!myFile.eof())
+    {
+        getline(myFile, tempText);
+        arrClients[i].type.checkin = stol(tempText.substr(3));
+        getline(myFile, tempText);
+        arrClients[i].type.savings = stol(tempText.substr(3));
+        getline(myFile, tempText);
+        arrClients[i].type.credit = stol(tempText.substr(3));
+        i++;
+    }
+    myFile.close();
+    return i;
+}
+
+void updateFile(clients arrClients[], short NBofClients)
+{
+    ofstream myFile;
+    myFile.open("clients.txt");
+    for (short i = 0; i < NBofClients; i++)
+    {
+        myFile << arrClients[i].number << endl;
+        myFile << arrClients[i].name << endl;
+        myFile << arrClients[i].pin << endl;
+    }
+    myFile.close();
+    myFile.open("account.txt");
+    for (short i = 0; i < NBofClients; i++)
+    {
+        myFile << "ch-" << to_string(arrClients[i].type.checkin) << endl;
+        myFile << "sa-" << to_string(arrClients[i].type.savings) << endl;
+        myFile << "cr-" << to_string(arrClients[i].type.credit) << endl;
+    }
+    myFile.close();
 }
 
 void displayHeading(string text)
@@ -88,40 +92,41 @@ void displayText(string text)
 
 string readClientNo(short NBofClients, clients arrClients[])
 {
-    string accNo;
-    bool j;
+    string clientNo;
+    bool match;
     do
     {
         cout << "Enter Your 6 Digit Account No. : ";
-        getline(cin, accNo);
+        getline(cin, clientNo);
+        clientNo = toUpper(clientNo);
         for (short i = 0; i < NBofClients; i++)
         {
-            if (toUpper(accNo) == arrClients[i].number)
+            if (clientNo == arrClients[i].number)
             {
-                j = true;
+                match = true;
             }
         }
-    } while (accNo.length() != 6 || !j);
-    return accNo;
+    } while (clientNo.length() != 6 || !match);
+    return clientNo;
 }
 
 string readPIN(short selectedClient, clients arrClients[])
 {
     string pin;
-    bool j;
+    bool match;
     do
     {
         cout << "Enter 4 Digit PIN : ";
         getline(cin, pin);
         if (pin == arrClients[selectedClient].pin)
         {
-            j = true;
+            match = true;
         }
-    } while (pin.length() != 4 || !j);
+    } while (pin.length() != 4 || !match);
     return pin;
 }
 
-short checkClient(string clientNo, short NBofClients, clients arrClients[])
+short checkClient(short NBofClients, string clientNo, clients arrClients[])
 {
     short client;
     for (short i = 0; i < NBofClients; i++)
@@ -142,10 +147,9 @@ void displaytAccountMenu()
     cout << "\n1. CheckIn\n";
     cout << "2. Savings\n";
     cout << "3. Credit\n";
-    // cout << "4. Log Out\n";
 }
 
-void displaytTransactionMenu()
+void displayTransactionMenu()
 {
     system("cls");
     displayHeading("Royal Bank");
@@ -153,22 +157,21 @@ void displaytTransactionMenu()
     cout << "\n1. Deposit\n";
     cout << "2. Withdrawn\n";
     cout << "3. Consult\n";
-    // cout << "4. Log Out\n";
 }
 
-short readAccType()
+short readOptions(short start, short end)
 {
     short select;
     do
     {
         cout << "Select Account Type or Log Out : ";
         cin >> select;
-    } while (select < 0 || select > 4);
+    } while (select < start || select > end);
     system("cls");
     return select;
 }
 
-void displayAccInfo(short selectedClient, short NBofClients, clients arrClients[])
+void displayAccInfo(string acctype, short selectedClient, short NBofClients, clients arrClients[])
 {
     for (short i = 0; i < NBofClients; i++)
     {
@@ -176,12 +179,26 @@ void displayAccInfo(short selectedClient, short NBofClients, clients arrClients[
         {
             cout << "Name : " << arrClients[i].name << endl;
             cout << "Account No : " << arrClients[i].number << endl;
-            // cout << "Balance  : $" << arrClients[i].balance << " CAD" << endl;
+            if (acctype == "CheckIn")
+            {
+                cout << "Account Type : " << acctype << endl;
+                cout << "Current Balance  : $" << arrClients[i].type.checkin << " CAD" << endl;
+            }
+            else if (acctype == "Savings")
+            {
+                cout << "Account Type : " << acctype << endl;
+                cout << "Current Balance  : $" << arrClients[i].type.savings << " CAD" << endl;
+            }
+            else if (acctype == "Credit")
+            {
+                cout << "Account Type : " << acctype << endl;
+                cout << "Current Balance  : $" << arrClients[i].type.credit << " CAD" << endl;
+            }
         }
     }
 }
 
-void deposit(short selectedClient, clients arrClients[])
+long deposit(string acctype, short selectedClient, clients arrClients[])
 {
     long deposit;
     do
@@ -189,20 +206,30 @@ void deposit(short selectedClient, clients arrClients[])
         cout << "Enter the amount you want to deposit in this transaction (Max $1000) : ";
         cin >> deposit;
     } while (deposit < 10 || deposit > 1000);
-    // cout << "\nTotal balance after transaction : $" << arrClients[selectedClient].balance + deposit << "CAD" << endl;
-    // return arrClients[selectedClient].balance + deposit;
+    if (acctype == "CheckIn")
+        deposit = arrClients[selectedClient].type.checkin = arrClients[selectedClient].type.checkin + deposit;
+    else if (acctype == "Savings")
+        deposit = arrClients[selectedClient].type.savings = arrClients[selectedClient].type.savings + deposit;
+    else if (acctype == "Credit")
+        deposit = arrClients[selectedClient].type.credit = arrClients[selectedClient].type.credit + deposit;
+    return deposit;
 }
 
-void withdrawl(short selectedClient, clients arrClients[])
+long withdrawl(string acctype, short selectedClient, clients arrClients[])
 {
     long withdrawl;
     do
     {
-        cout << "Enter the amount you want to withdrawl in this transaction (Max $1000 | Min $10) : ";
+        cout << "Enter the amount you want to withdrawl in this transaction (Max $1000) : ";
         cin >> withdrawl;
     } while (withdrawl < 10 || withdrawl > 1000);
-    // cout << "\nTotal balance after transaction : $" << arrClients[selectedClient].balance - withdrawl << "CAD" << endl;
-    // return arrClients[selectedClient].balance - withdrawl;
+    if (acctype == "CheckIn")
+        withdrawl = arrClients[selectedClient].type.checkin - withdrawl;
+    else if (acctype == "Savings")
+        withdrawl = arrClients[selectedClient].type.savings - withdrawl;
+    else if (acctype == "Credit")
+        withdrawl = arrClients[selectedClient].type.credit - withdrawl;
+    return withdrawl;
 }
 
 char restartCalc(char restart)
@@ -214,4 +241,33 @@ char restartCalc(char restart)
     } while (!(toupper(restart) == 'Y' || toupper(restart) == 'N'));
     system("cls");
     return (toupper(restart));
+}
+
+void openAccount(string acctype, short selectedClient, short NBofClients, clients arrClients[])
+{
+    cout << acctype << endl;
+    displayTransactionMenu();
+    short transactionType = readOptions(1, 3);
+    long finalBal;
+    switch (transactionType)
+    {
+    case 1:
+        displayHeading("Royal Bank");
+        displayHeading("|Deposit|");
+        displayAccInfo(acctype, selectedClient, NBofClients, arrClients);
+        finalBal = deposit(acctype, selectedClient, arrClients);
+        cout << "\nTotal balance after transaction : $" << finalBal << "CAD" << endl;
+        break;
+    case 2:
+        displayHeading("Royal Bank");
+        displayHeading("|Withdrawl|");
+        displayAccInfo(acctype, selectedClient, NBofClients, arrClients);
+        finalBal = withdrawl(acctype, selectedClient, arrClients);
+        cout << "\nTotal balance after transaction : $" << finalBal << "CAD" << endl;
+        break;
+    case 3:
+        break;
+    default:
+        break;
+    }
 }
