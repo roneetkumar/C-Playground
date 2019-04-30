@@ -108,7 +108,6 @@ string readPIN(short selectedClient, clients arrClients[])
     bool match;
     do
     {
-        cin.ignore();
         cout << "Enter 4 Digit PIN : ";
         getline(cin, pin);
         if (pin == arrClients[selectedClient].pin)
