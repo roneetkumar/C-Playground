@@ -66,20 +66,20 @@ void updateFile(clients arrClients[], short NBofClients)
     {
         myFile << "ch-" << to_string(arrClients[i].type.checkin) << endl;
         myFile << "sa-" << to_string(arrClients[i].type.savings) << endl;
-        myFile << "cr-" << to_string(arrClients[i].type.credit) << endl;
+        myFile << "cr-" << to_string(arrClients[i].type.credit);
+        if (i != (NBofClients - 1))
+        {
+            myFile << endl;
+        }
     }
     myFile.close();
 }
 
-void displayHeading(string text)
+void displayHeading(string heading, string subHeading)
 {
-    cout << "\t" << toUpper(text) << endl;
-    cout << "\t" << string(text.length(), '`') << endl;
-}
-
-void displayText(string text)
-{
-    cout << text << endl;
+    cout << "\t" << toUpper(heading) << endl;
+    cout << "\t" << string(heading.length(), '`') << endl;
+    cout << "\t" << toUpper(subHeading) << endl;
 }
 
 string readClientNo(short NBofClients, clients arrClients[])
@@ -108,13 +108,16 @@ string readPIN(short selectedClient, clients arrClients[])
     bool match;
     do
     {
+        cin.ignore();
         cout << "Enter 4 Digit PIN : ";
         getline(cin, pin);
         if (pin == arrClients[selectedClient].pin)
         {
             match = true;
         }
+
     } while (pin.length() != 4 || !match);
+    system("cls");
     return pin;
 }
 
@@ -133,22 +136,19 @@ short checkClient(short NBofClients, string clientNo, clients arrClients[])
 
 void displaytAccountMenu()
 {
-    system("cls");
-    displayHeading("Royal Bank");
-    cout << "\nSelect Account Type : \n";
+    cout << "Select Account Type : \n";
     cout << "\n1. CheckIn\n";
     cout << "2. Savings\n";
     cout << "3. Credit\n";
+    cout << "4. Log Out\n";
 }
 
 void displayTransactionMenu()
 {
-    system("cls");
-    displayHeading("Royal Bank");
-    cout << "\nSelect Transcation Type : \n";
+    cout << "Select Transcation Type : \n";
     cout << "\n1. Deposit\n";
     cout << "2. Withdrawn\n";
-    cout << "3. Consult\n";
+    cout << "3. Go Back\n";
 }
 
 short readOptions(short start, short end)
@@ -163,7 +163,7 @@ short readOptions(short start, short end)
     return select;
 }
 
-void displayAccInfo(string acctype, short selectedClient, short NBofClients, clients arrClients[])
+void displayAccInfo(short acctype, short selectedClient, short NBofClients, clients arrClients[])
 {
     for (short i = 0; i < NBofClients; i++)
     {
@@ -171,26 +171,26 @@ void displayAccInfo(string acctype, short selectedClient, short NBofClients, cli
         {
             cout << "Name : " << arrClients[i].name << endl;
             cout << "Account No : " << arrClients[i].number << endl;
-            if (acctype == "CheckIn")
+            if (acctype == 1)
             {
-                cout << "Account Type : " << acctype << endl;
+                cout << "Account Type : CheckIn" << endl;
                 cout << "Current Balance  : $" << arrClients[i].type.checkin << " CAD" << endl;
             }
-            else if (acctype == "Savings")
+            else if (acctype == 2)
             {
-                cout << "Account Type : " << acctype << endl;
+                cout << "Account Type : Savings" << endl;
                 cout << "Current Balance  : $" << arrClients[i].type.savings << " CAD" << endl;
             }
-            else if (acctype == "Credit")
+            else if (acctype == 3)
             {
-                cout << "Account Type : " << acctype << endl;
+                cout << "Account Type : Credit" << endl;
                 cout << "Current Balance  : $" << arrClients[i].type.credit << " CAD" << endl;
             }
         }
     }
 }
 
-long deposit(string acctype, short selectedClient, clients arrClients[])
+long deposit(short acctype, short selectedClient, clients arrClients[])
 {
     long deposit;
     do
@@ -198,16 +198,16 @@ long deposit(string acctype, short selectedClient, clients arrClients[])
         cout << "Enter the amount you want to deposit in this transaction (Max $1000) : ";
         cin >> deposit;
     } while (deposit < 10 || deposit > 1000);
-    if (acctype == "CheckIn")
-        deposit = arrClients[selectedClient].type.checkin = arrClients[selectedClient].type.checkin + deposit;
-    else if (acctype == "Savings")
-        deposit = arrClients[selectedClient].type.savings = arrClients[selectedClient].type.savings + deposit;
-    else if (acctype == "Credit")
-        deposit = arrClients[selectedClient].type.credit = arrClients[selectedClient].type.credit + deposit;
+    if (acctype == 1)
+        deposit = arrClients[selectedClient].type.checkin += deposit;
+    else if (acctype == 2)
+        deposit = arrClients[selectedClient].type.savings += deposit;
+    else if (acctype == 3)
+        deposit = arrClients[selectedClient].type.credit += deposit;
     return deposit;
 }
 
-long withdrawl(string acctype, short selectedClient, clients arrClients[])
+long withdrawl(short acctype, short selectedClient, clients arrClients[])
 {
     long withdrawl;
     do
@@ -215,12 +215,12 @@ long withdrawl(string acctype, short selectedClient, clients arrClients[])
         cout << "Enter the amount you want to withdrawl in this transaction (Max $1000) : ";
         cin >> withdrawl;
     } while (withdrawl < 10 || withdrawl > 1000);
-    if (acctype == "CheckIn")
-        withdrawl = arrClients[selectedClient].type.checkin - withdrawl;
-    else if (acctype == "Savings")
-        withdrawl = arrClients[selectedClient].type.savings - withdrawl;
-    else if (acctype == "Credit")
-        withdrawl = arrClients[selectedClient].type.credit - withdrawl;
+    if (acctype == 1)
+        withdrawl = arrClients[selectedClient].type.checkin -= withdrawl;
+    else if (acctype == 2)
+        withdrawl = arrClients[selectedClient].type.savings -= withdrawl;
+    else if (acctype == 3)
+        withdrawl = arrClients[selectedClient].type.credit -= withdrawl;
     return withdrawl;
 }
 
@@ -233,33 +233,4 @@ char restartCalc(char restart)
     } while (!(toupper(restart) == 'Y' || toupper(restart) == 'N'));
     system("cls");
     return (toupper(restart));
-}
-
-void openAccount(string acctype, short selectedClient, short NBofClients, clients arrClients[])
-{
-    cout << acctype << endl;
-    displayTransactionMenu();
-    short transactionType = readOptions(1, 3);
-    long finalBal;
-    switch (transactionType)
-    {
-    case 1:
-        displayHeading("Royal Bank");
-        displayHeading("|Deposit|");
-        displayAccInfo(acctype, selectedClient, NBofClients, arrClients);
-        finalBal = deposit(acctype, selectedClient, arrClients);
-        cout << "\nTotal balance after transaction : $" << finalBal << "CAD" << endl;
-        break;
-    case 2:
-        displayHeading("Royal Bank");
-        displayHeading("|Withdrawl|");
-        displayAccInfo(acctype, selectedClient, NBofClients, arrClients);
-        finalBal = withdrawl(acctype, selectedClient, arrClients);
-        cout << "\nTotal balance after transaction : $" << finalBal << "CAD" << endl;
-        break;
-    case 3:
-        break;
-    default:
-        break;
-    }
 }
