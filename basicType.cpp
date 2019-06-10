@@ -8,7 +8,6 @@ int main()
     int yearOfBirth, age;
     float timeWorked, hourlyRate, totalSalary;
     string firstName, lastName;
-
     cout << "        BASIC TYPES" << endl;
     cout << "        ___________" << endl;
     cout << "Enter your first name : ";
