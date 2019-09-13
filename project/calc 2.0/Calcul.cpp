@@ -1,4 +1,5 @@
 #include "myFunctions.h"
+
 int main()
 {
     char restart;
