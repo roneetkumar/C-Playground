@@ -49,8 +49,8 @@ short readOption(short min, short max)
 
 /* this function reads a value and validates it for numeric.
  this is a general purpose function which can used at multiple sections of the
- program. its only job is to read a value from user and validate it for 
- numeric value. Moreover, it also ask's the user to input the value depending upon 
+ program. its only job is to read a value from user and validate it for
+ numeric value. Moreover, it also ask's the user to input the value depending upon
  users need.*/
 
 double readValue(string temp)
